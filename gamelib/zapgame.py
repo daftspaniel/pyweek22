@@ -2,9 +2,13 @@ import pygame
 from pygame.locals import *
 from gamelib.gfxutil import *
 from gamelib.player import *
+from gamelib.level import *
+from gamelib.gfx import *
+
 ANIMEVENT = pygame.USEREVENT + 3
 FPS = 25
 pygame.time.set_timer(ANIMEVENT, int(1000 / FPS))
+
 
 class ZapGame(object):
     """
@@ -15,6 +19,7 @@ class ZapGame(object):
         self.surface = surface
         self.screen = screen
         self.p1 = Player()
+        self.levels = Levels([Pause(4)])
 
     def MainLoop(self):
         #
@@ -26,7 +31,7 @@ class ZapGame(object):
                     exit()
                 elif event.type == KEYDOWN:
                     keystate = pygame.key.get_pressed()
-
+                    print("keystate" + str(keystate[K_w]))
                     if keystate[K_w] == 1:
                         self.p1.fire(1)
                     elif keystate[K_d] == 1:
@@ -37,25 +42,15 @@ class ZapGame(object):
                         self.p1.fire(4)
                 elif event.type == ANIMEVENT:
                     self.p1.update()
+                    self.levels.update()
                     self.UpdateScreen()
                     self.screen.blit(self.surface, (0, 0))
                     pygame.display.flip()
 
     def UpdateScreen(self):
-        self.surface.fill((0,0,0))
+        self.surface.fill((0, 0, 0))
         print("Game ON..." + str(self.p1.fireDirection))
         DrawText(self.surface, 10, 50, "Game ON..." + str(self.p1.fireDirection))
 
-        self.drawLaser()
-
-        pygame.draw.circle(self.surface, (0, 255, 0), (300, 300), 30)
-
-    def drawLaser(self):
-        if self.p1.fireDirection == 3:
-            pygame.draw.line(self.surface, (255, 0, 0), (300, 300), (300, 600))
-        elif self.p1.fireDirection == 4:
-            pygame.draw.line(self.surface, (255, 0, 0), (300, 300), (0, 300))
-        elif self.p1.fireDirection == 1:
-            pygame.draw.line(self.surface, (255, 0, 0), (300, 300), (300,0))
-        elif self.p1.fireDirection == 2:
-            pygame.draw.line(self.surface, (255, 0, 0), (300, 300), (600,300))
+        drawBase(self.surface)
+        if self.p1.firing: drawLaser(self.surface, self.p1.fireDirection)

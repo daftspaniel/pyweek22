@@ -5,15 +5,14 @@ from gamelib.gfxutil import *
 from gamelib.zapgame import *
 import sys
 
-
 ## GLOBAL SETUP
 pygame.init()
 ScreenSize = [600, 600]
 
 screen = pygame.display.set_mode(ScreenSize)
 
-
 pygame.display.set_caption("Zap!")
+pygame.key.set_repeat(10, 10)
 surface = CreateSurface(screen)
 Game = None
 

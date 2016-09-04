@@ -3,7 +3,7 @@ class Player(object):
     def __init__(self):
         self.fireDirection = 0
         self.firing = False
-        self.maxlife = 40
+        self.maxlife = 10
         self.laserlife = 0
         self.score = 0
 
@@ -11,7 +11,7 @@ class Player(object):
         if self.firing:
             return
         self.firing = True
-        self.laserlife = 10
+        self.laserlife = self.maxlife
         self.fireDirection = direction
 
     def update(self):
