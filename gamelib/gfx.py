@@ -1,6 +1,7 @@
 from pygame.locals import *
 import pygame
 import pygame.gfxdraw
+from gamelib.gfxutil import *
 
 midpoint = (285, 315)
 dpoint = (300, 300)
@@ -24,3 +25,6 @@ def drawLaser(sfc, direction):
 
 def drawShip(sfc, event):
     pygame.draw.rect(sfc, shipColors[0], event.body)
+
+def drawTxt(sfc, event):
+    drawText(sfc, event.body.left, event.body.top, event.text, 24, (255, 255, 255))

@@ -1,9 +1,11 @@
 import pygame
-from pygame.locals import *
+import math
+# from pygame.locals import *
 from gamelib.logger import *
 from gamelib.gfxutil import *
 from gamelib.player import *
-from gamelib.level import *
+# from gamelib.level import *
+from gamelib.levelbuilder import *
 from gamelib.gfx import *
 from gamelib.ship import *
 
@@ -13,15 +15,11 @@ pygame.time.set_timer(ANIMEVENT, int(1000 / FPS))
 
 
 class ZapGame(object):
-    """
-        Main game class.
-    """
-
     def __init__(self, surface, screen):
         self.surface = surface
         self.screen = screen
         self.p1 = Player()
-        self.levels = Levels([Pause(4), Ship()])
+        self.levels = LevelFactory(getLevel(1))
 
     def MainLoop(self):
         #
@@ -33,7 +31,7 @@ class ZapGame(object):
                     exit()
                 elif event.type == KEYDOWN:
                     keystate = pygame.key.get_pressed()
-                    # print("keystate" + str(keystate[K_w]))
+
                     if keystate[K_w] == 1:
                         self.p1.fire(1)
                     elif keystate[K_d] == 1:
@@ -51,23 +49,37 @@ class ZapGame(object):
                     pygame.display.flip()
 
     def UpdateScreen(self):
-        self.surface.fill((0, 0, 0))
-        # print("Game ON..." + str(self.p1.fireDirection))
-        DrawText(self.surface, 10, 50, "Game ON..." + str(self.p1.fireDirection))
 
-        drawBase(self.surface)
+        self.drawScreenFurniture()
+
+        gameEvent = self.levels.event
+
         if self.p1.firing: drawLaser(self.surface, self.p1.fireDirection)
 
         if self.levels.event and self.levels.event.type == 1:
-            log("shipp")
-            drawShip(self.surface, self.levels.event)
+            drawShip(self.surface, gameEvent)
+
+        if gameEvent.type == 2:
+            drawTxt(self.surface, gameEvent)
+
+    def drawScreenFurniture(self):
+        self.surface.fill((0, 0, 0))
+        drawBase(self.surface)
 
     def checkCollisions(self):
+
+        ship = self.levels.event
         if self.p1.firing:
-            log("firing")
-            if self.levels.event.type == 1:
-                log("ship")
-                ship = self.levels.event
-                if ship.body.colliderect(self.p1.getLaserRects()):
-                    log("hit")
-                    ship.alive = False
+            self.checkPlayerShots(ship)
+        if self.levels.event.type == 1:
+            self.checkEnemyCollsion(ship)
+
+    def checkEnemyCollsion(self, ship):
+        if math.hypot(ship.body.center[0] - 300, ship.body.center[1] - 300) < 35:
+            ship.alive = False
+
+    def checkPlayerShots(self, ship):
+        if self.levels.event.type == 1:
+            centre = ship.body.center
+            if ship.body.colliderect(self.p1.getLaserRects()):
+                ship.alive = False

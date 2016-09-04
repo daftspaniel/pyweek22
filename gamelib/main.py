@@ -13,7 +13,7 @@ screen = pygame.display.set_mode(ScreenSize)
 
 pygame.display.set_caption("Zap!")
 pygame.key.set_repeat(10, 10)
-surface = CreateSurface(screen)
+surface = createSurface(screen)
 Game = None
 
 
@@ -23,7 +23,7 @@ Game = None
 def main():
     GameState = 2
     surface.fill(pygame.Color("white"))
-    DrawText(surface, 10, 50, "Daftspaniel Presents...")
+    drawText(surface, 10, 50, "Daftspaniel Presents...")
     screen.blit(surface, (0, 0))
     pygame.display.flip()
 
@@ -31,7 +31,7 @@ def main():
         if GameState == 2:
             surface.fill(pygame.Color("black"))
 
-            DrawText(surface, 10, 50, "Please Wait...")
+            drawText(surface, 10, 50, "Please Wait...")
             screen.blit(surface, (0, 0))
             pygame.display.flip()
             Game = ZapGame(surface, screen)
