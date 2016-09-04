@@ -9,7 +9,7 @@ laserColor = (0, 255, 0)
 targets = ((300, 0), (600, 300), (300, 600), (0, 300))
 
 impColors = ((125, 125, 125),(155, 155, 155),)
-shipColors = ((0, 255, 0),(0, 155, 0),)
+shipColors = ((0, 255, 0),(0, 15, 255),)
 
 def drawBase(sfc):
     pygame.gfxdraw.filled_circle(sfc, midpoint[0], midpoint[1], 39, impColors[0])
@@ -24,7 +24,10 @@ def drawLaser(sfc, direction):
 
 
 def drawShip(sfc, event):
-    pygame.draw.rect(sfc, shipColors[0], event.body)
+    rt = event.body
+    pygame.draw.line(sfc, shipColors[1], rt.topleft, rt.bottomright)
+    pygame.draw.line(sfc, shipColors[1], rt.topright, rt.bottomleft)
+    pygame.gfxdraw.circle(sfc, rt.center[0],rt.center[1], 8, shipColors[1])
 
 def drawTxt(sfc, event):
     drawText(sfc, event.body.left, event.body.top, event.text, 24, (255, 255, 255))

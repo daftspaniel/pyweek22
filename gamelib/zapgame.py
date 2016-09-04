@@ -54,13 +54,15 @@ class ZapGame(object):
 
         gameEvent = self.levels.event
 
-        if self.p1.firing: drawLaser(self.surface, self.p1.fireDirection)
+        if gameEvent:
 
-        if self.levels.event and self.levels.event.type == 1:
-            drawShip(self.surface, gameEvent)
+            if self.p1.firing: drawLaser(self.surface, self.p1.fireDirection)
 
-        if gameEvent.type == 2:
-            drawTxt(self.surface, gameEvent)
+            if self.levels.event.type == 1:
+                drawShip(self.surface, gameEvent)
+
+            if gameEvent.type == 2:
+                drawTxt(self.surface, gameEvent)
 
     def drawScreenFurniture(self):
         self.surface.fill((0, 0, 0))
