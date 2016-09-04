@@ -1,4 +1,4 @@
-print("Python 3 please!")
+print("Please use Python 3 for this game - thanks!")
 
 import pygame
 from gamelib.gfxutil import *

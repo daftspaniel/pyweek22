@@ -16,10 +16,9 @@ class Levels(object):
     def update(self):
 
         if self.event.IsComplete():
-            if len(self.levels) == 0:
+            if len(self.levels) > 0:
                 self.event = self.levels.pop(0)
             else:
-                log("Reset!")
                 self.event = Pause(4)
         else:
             self.event.update()
@@ -32,13 +31,12 @@ class GameEvent(object):
     def IsComplete(self):
         pass
 
-
 class Pause(GameEvent):
     def __init__(self, duration=5):
         self.life = duration * 25
-
+        self.type = 0
     def update(self):
-        log(self.life)
+        #log(self.life)
         self.life -= 1
 
     def IsComplete(self):
