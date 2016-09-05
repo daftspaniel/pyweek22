@@ -1,4 +1,4 @@
-logenabled = True
+logenabled = False
 
 def log(text):
     if logenabled:

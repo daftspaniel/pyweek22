@@ -52,16 +52,14 @@ class ZapGame(object):
 
         self.drawScreenFurniture()
 
-        gameEvent = self.levels.event
+        if self.p1.firing: drawLaser(self.surface, self.p1.fireDirection)
 
-        if gameEvent:
+        for gameEvent in self.levels.events:
 
-            if self.p1.firing: drawLaser(self.surface, self.p1.fireDirection)
-
-            if self.levels.event.type == 1:
+            if gameEvent.type == 1:
                 drawShip(self.surface, gameEvent)
 
-            if gameEvent.type == 2:
+            elif gameEvent.type == 2:
                 drawTxt(self.surface, gameEvent)
 
     def drawScreenFurniture(self):
@@ -70,18 +68,18 @@ class ZapGame(object):
 
     def checkCollisions(self):
 
-        ship = self.levels.event
-        if self.p1.firing:
-            self.checkPlayerShots(ship)
-        if self.levels.event.type == 1:
-            self.checkEnemyCollsion(ship)
+        for ship in self.levels.events:
+            if ship.shootable:
+                if self.p1.firing:
+                    self.checkPlayerShots(ship)
+
+                self.checkEnemyCollsion(ship)
 
     def checkEnemyCollsion(self, ship):
         if math.hypot(ship.body.center[0] - 300, ship.body.center[1] - 300) < 35:
             ship.alive = False
 
     def checkPlayerShots(self, ship):
-        if self.levels.event.type == 1:
-            centre = ship.body.center
-            if ship.body.colliderect(self.p1.getLaserRects()):
-                ship.alive = False
+        centre = ship.body.center
+        if ship.body.colliderect(self.p1.getLaserRects()):
+            ship.alive = False

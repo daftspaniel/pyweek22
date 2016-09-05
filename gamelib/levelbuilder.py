@@ -28,7 +28,7 @@ def getLevel(index):
                       Pause(),
                       Ship((SLOW, 0), W),
                       Pause(),
-                      Ship((SLOW * -1, 0), E),
+                      Ship((SLOW * -1, 0), E, False),
+                      Ship((SLOW, 0), W)
                       ])
-        print(level)
     return level

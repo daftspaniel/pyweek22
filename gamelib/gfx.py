@@ -13,7 +13,7 @@ shipColors = ((0, 255, 0),(0, 15, 255),)
 
 def drawBase(sfc):
     pygame.gfxdraw.filled_circle(sfc, midpoint[0], midpoint[1], 39, impColors[0])
-    pygame.gfxdraw.circle(sfc, midpoint[0], midpoint[1], 39, impColors[1])
+    pygame.gfxdraw.aacircle(sfc, midpoint[0], midpoint[1], 39, impColors[1])
     pygame.gfxdraw.filled_circle(sfc, dpoint[0], dpoint[1], 8, impColors[1])
     pygame.gfxdraw.filled_circle(sfc, dpoint[0], dpoint[1], 2, impColors[0])
     pygame.gfxdraw.hline(sfc, midpoint[0]-39, midpoint[0]+39, 315, impColors[1])
