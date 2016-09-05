@@ -10,7 +10,7 @@ from gamelib.gfx import *
 from gamelib.ship import *
 
 ANIMEVENT = pygame.USEREVENT + 3
-FPS = 25
+FPS = 50
 pygame.time.set_timer(ANIMEVENT, int(1000 / FPS))
 
 
@@ -61,6 +61,12 @@ class ZapGame(object):
 
             elif gameEvent.type == 2:
                 drawTxt(self.surface, gameEvent)
+
+            elif gameEvent.type == 3:
+                drawAsteroid(self.surface, gameEvent)
+
+            elif gameEvent.type == 4:
+                drawFighter(self.surface, gameEvent)
 
     def drawScreenFurniture(self):
         self.surface.fill((0, 0, 0))

@@ -22,16 +22,8 @@ class LevelFactory(object):
         elif len(self.events) > 0 and self.events[-1].sole == True:
             return
 
-        #print("self.levels" + str(len(self.levels)))
-        #for event in self.levels:
-        while len(self.levels)>0 and (len(self.events)==0 or self.events[-1].sole == False):
+        while len(self.levels) > 0 and (len(self.events) == 0 or self.events[-1].sole == False):
             self.events.append(self.levels.pop(0))
-            #print("Added" + str(self.events[-1]))
-            #print(event.sole)
-            #if event.sole == True:
-            #    print("BREAK")
-            #    break
-        #print(len(self.events))
 
     def update(self):
         refreshedEvents = []
@@ -72,9 +64,13 @@ class Pause(GameEvent):
 
 
 class GameText(Pause):
-    def __init__(self, text="hello world", duration=10, pos=(0, 0)):
+    def __init__(self, text="hello world", duration=12, pos=(0, 300)):
         super(GameText, self).__init__(duration)
         self.body = Rect(pos[0], pos[1], 300, 50)
         self.text = text
         self.type = 2
         self.shootable = False
+
+    def update(self):
+        self.life -= 1
+        self.body.left += 5
