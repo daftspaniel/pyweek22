@@ -43,6 +43,8 @@ def getLevel(index):
 
         setNSEW(level, TFighter, False)
 
-        level.extend([Pause(2), Text("DONE", 12, True)])
+        level.extend([Pause(4), Text("LEVEL UP", 12, True)])
+        speedUp()
+        setNSEW(level, Asteroid, False)
 
     return level

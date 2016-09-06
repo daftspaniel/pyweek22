@@ -9,6 +9,8 @@ class Player(object):
         self.maxlife = 10
         self.laserlife = 0
         self.score = 0
+        self.shields = 100
+        self.damage = []
         self.laserPos = [Rect(299,0,3,300),Rect(300,299,300,3),Rect(299,300,3,300),Rect(0,299,300,3)]
 
     def fire(self, direction):

@@ -9,15 +9,19 @@ targets = ((300, 0), (600, 300), (300, 600), (0, 300))
 
 impColors = ((125, 125, 125), (155, 155, 155),)
 shipColors = ((0, 255, 0), (0, 15, 255),)
+TEXT_COLOR = (255, 255, 128)
 
 
-def drawBase(sfc):
+def drawBase(sfc, damage):
     pygame.gfxdraw.filled_circle(sfc, midpoint[0], midpoint[1], 39, impColors[0])
     pygame.gfxdraw.aacircle(sfc, midpoint[0], midpoint[1], 39, impColors[1])
+
+    for dmg in damage:
+        pygame.gfxdraw.filled_circle(sfc, 260 + dmg[0], 260 + dmg[1], dmg[2], (0, 0, 0))
+
     pygame.gfxdraw.filled_circle(sfc, dpoint[0], dpoint[1], 8, impColors[1])
     pygame.gfxdraw.filled_circle(sfc, dpoint[0], dpoint[1], 2, impColors[0])
     pygame.gfxdraw.hline(sfc, midpoint[0] - 39, midpoint[0] + 39, 315, impColors[1])
-
 
 def drawLaser(sfc, direction):
     pygame.draw.line(sfc, laserColor, dpoint, targets[direction - 1])
@@ -40,6 +44,8 @@ def drawAsteroid(sfc, event):
         ap.append([point[0] + rt.left, point[1] + rt.top])
     pygame.gfxdraw.filled_polygon(sfc, ap, (255, 111, 51))
 
+def drawShuttle(sfc, event):
+    rt = event.body
 
 def drawShip(sfc, event):
     rt = event.body
@@ -55,5 +61,10 @@ def drawShip(sfc, event):
     pygame.gfxdraw.aacircle(sfc, rt.center[0], rt.center[1], 8, shipColors[1])
 
 
-def drawTxt(sfc, event):
-    drawText(sfc, event.body.left, event.body.top, event.text, 24, (255, 255, 255))
+def drawTxt(sfc, event, col = TEXT_COLOR):
+    drawText(sfc, event.body.left, event.body.top, event.text, 24, col)
+
+
+def drawPlayerStatus(sfc, p1):
+    drawText(sfc, 5, 4, ("0000" + str(p1.score))[-8:], 24, TEXT_COLOR)
+    drawText(sfc, 495, 4, "Shields : " + str(p1.shields), 24, TEXT_COLOR)

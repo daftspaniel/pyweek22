@@ -16,6 +16,7 @@ class ZapGame(object):
         self.screen = screen
         self.p1 = Player()
         self.levels = LevelFactory(getLevel(1))
+        self.flash = False
 
     def MainLoop(self):
         #
@@ -41,6 +42,10 @@ class ZapGame(object):
                     self.levels.update()
                     self.checkCollisions()
                     self.UpdateScreen()
+                    if self.flash:
+                        self.surface.fill((255, 0, 0))
+                        self.flash = False
+
                     self.screen.blit(self.surface, (0, 0))
                     pygame.display.flip()
 
@@ -64,9 +69,11 @@ class ZapGame(object):
             elif gameEvent.type == 4:
                 drawFighter(self.surface, gameEvent)
 
+        drawPlayerStatus(self.surface, self.p1)
+
     def drawScreenFurniture(self):
         self.surface.fill((0, 0, 0))
-        drawBase(self.surface)
+        drawBase(self.surface, self.p1.damage)
 
     def checkCollisions(self):
 
@@ -78,10 +85,15 @@ class ZapGame(object):
                 self.checkEnemyCollsion(ship)
 
     def checkEnemyCollsion(self, ship):
-        if math.hypot(ship.body.center[0] - 300, ship.body.center[1] - 300) < 35:
+        if math.hypot(ship.body.center[0] - 300, ship.body.center[1] - 300) < 45:
             ship.alive = False
+            self.p1.damage.append((RND(70), RND(70), 4 + RND(8)))
+            self.p1.shields -= 25
+            self.flash = True
 
     def checkPlayerShots(self, ship):
         centre = ship.body.center
         if ship.body.colliderect(self.p1.getLaserRects()):
+            dist = 5 + math.floor(abs(math.hypot(ship.body.center[0] - 300, ship.body.center[1] - 300)) / 10)
             ship.alive = False
+            self.p1.score += dist

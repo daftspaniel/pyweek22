@@ -8,6 +8,7 @@ class Text(Pause):
         self.type = 2
         self.shootable = False
         self.sole = sole
+        self.body.top = 550
 
     def update(self):
         self.life -= 1
