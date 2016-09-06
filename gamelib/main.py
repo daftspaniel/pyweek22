@@ -1,9 +1,7 @@
 print("Please use Python 3 for this game - thanks!")
 
-import pygame
-from gamelib.gfxutil import *
 from gamelib.zapgame import *
-import sys
+from gamelib.util.gfxutil import *
 
 ## GLOBAL SETUP
 pygame.init()

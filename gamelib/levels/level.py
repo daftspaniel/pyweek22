@@ -1,6 +1,5 @@
+import pygame
 from pygame.locals import *
-from gamelib.logger import *
-
 
 class Level(object):
     def __init__(self, events):
@@ -40,37 +39,4 @@ class LevelFactory(object):
             self.buildCurrentEvents()
 
 
-class GameEvent(object):
-    shootable = False
 
-    def __init__(self):
-        pass
-
-    def IsComplete(self):
-        pass
-
-
-class Pause(GameEvent):
-    def __init__(self, duration=1):
-        self.life = duration * 10
-        self.type = 0
-        self.sole = True
-
-    def update(self):
-        self.life -= 1
-
-    def IsComplete(self):
-        return False if self.life > 0 else True
-
-
-class GameText(Pause):
-    def __init__(self, text="hello world", duration=12, pos=(0, 300)):
-        super(GameText, self).__init__(duration)
-        self.body = Rect(pos[0], pos[1], 300, 50)
-        self.text = text
-        self.type = 2
-        self.shootable = False
-
-    def update(self):
-        self.life -= 1
-        self.body.left += 5

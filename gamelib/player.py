@@ -1,7 +1,6 @@
-from pygame.locals import *
 import pygame
-import pygame.gfxdraw
-from gamelib.logger import *
+from pygame.locals import *
+from gamelib.util.logger import *
 
 class Player(object):
     def __init__(self):

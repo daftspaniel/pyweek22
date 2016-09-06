@@ -1,13 +1,9 @@
-import pygame
 import math
-# from pygame.locals import *
-from gamelib.logger import *
-from gamelib.gfxutil import *
+
+from gamelib.gfx.gfx import *
+from gamelib.levels.levelbuilder import *
+from gamelib.levels.level import *
 from gamelib.player import *
-# from gamelib.level import *
-from gamelib.levelbuilder import *
-from gamelib.gfx import *
-from gamelib.ship import *
 
 ANIMEVENT = pygame.USEREVENT + 3
 FPS = 50
