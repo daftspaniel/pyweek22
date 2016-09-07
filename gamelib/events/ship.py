@@ -11,3 +11,7 @@ class Ship(GEvent):
 
     def IsComplete(self):
         return False if self.alive else True
+
+    def update(self):
+        self.body.left += self.vx
+        self.body.top += self.vy

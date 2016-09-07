@@ -23,6 +23,7 @@ def drawBase(sfc, damage):
     pygame.gfxdraw.filled_circle(sfc, dpoint[0], dpoint[1], 2, impColors[0])
     pygame.gfxdraw.hline(sfc, midpoint[0] - 39, midpoint[0] + 39, 315, impColors[1])
 
+
 def drawLaser(sfc, direction):
     pygame.draw.line(sfc, laserColor, dpoint, targets[direction - 1])
 
@@ -44,8 +45,16 @@ def drawAsteroid(sfc, event):
         ap.append([point[0] + rt.left, point[1] + rt.top])
     pygame.gfxdraw.filled_polygon(sfc, ap, (255, 111, 51))
 
+
 def drawShuttle(sfc, event):
     rt = event.body
+    points = [(15, 0), (15, 15), (30, 30), (15, 15), (0, 30), (15, 15)]
+    ap = []
+    for point in points:
+        ap.append([point[0] + rt.left, point[1] + rt.top])
+    pygame.gfxdraw.filled_polygon(sfc, ap, (255, 111, 51))
+    pygame.gfxdraw.filled_circle(sfc, rt.center[0], rt.center[1], 4, (0, 0, 255))
+
 
 def drawShip(sfc, event):
     rt = event.body
@@ -61,7 +70,7 @@ def drawShip(sfc, event):
     pygame.gfxdraw.aacircle(sfc, rt.center[0], rt.center[1], 8, shipColors[1])
 
 
-def drawTxt(sfc, event, col = TEXT_COLOR):
+def drawTxt(sfc, event, col=TEXT_COLOR):
     drawText(sfc, event.body.left, event.body.top, event.text, 24, col)
 
 
