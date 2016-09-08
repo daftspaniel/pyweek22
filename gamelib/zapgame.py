@@ -1,6 +1,7 @@
 import math
 
 from gamelib.gfx.gfx import *
+from gamelib.gfx.starfield import *
 from gamelib.levels.levelbuilder import *
 from gamelib.levels.level import *
 from gamelib.player import *
@@ -9,6 +10,15 @@ ANIMEVENT = pygame.USEREVENT + 3
 FPS = 50
 pygame.time.set_timer(ANIMEVENT, int(1000 / FPS))
 
+starfields = [
+    Starfield( (0,0), (600,600), 20, 1 ),
+    Starfield( (0,0), (600,600), 30, 2 ),
+    Starfield( (0,0), (600,600), 40, 3 )
+    ]
+
+starfields[0].color = (255,0,0)
+starfields[1].color = (0,255,0)
+starfields[2].color = (0,0,255)
 
 class ZapGame(object):
     def __init__(self, surface, screen):
@@ -17,6 +27,7 @@ class ZapGame(object):
         self.p1 = Player()
         self.levels = LevelFactory(getLevel(1))
         self.flash = False
+        self.explosions = []
 
     def MainLoop(self):
         #
@@ -37,6 +48,8 @@ class ZapGame(object):
                         self.p1.fire(3)
                     elif keystate[K_a] == 1:
                         self.p1.fire(4)
+                    elif keystate[K_p] == 1:
+                        pygame.image.save(self.screen, "/home/daftspaniel/screenshot.jpeg")
                 elif event.type == ANIMEVENT:
                     self.p1.update()
                     self.levels.update()
@@ -59,6 +72,8 @@ class ZapGame(object):
 
         drawPlayerStatus(self.surface, self.p1)
 
+        self.explosions = drawExplosions(self.surface, self.explosions)
+
     def drawShips(self):
         for gameEvent in self.levels.events:
 
@@ -77,8 +92,15 @@ class ZapGame(object):
             elif gameEvent.type == 5:
                 drawShuttle(self.surface, gameEvent)
 
+            elif gameEvent.type == 6:
+                drawOrb(self.surface, gameEvent)
+
     def drawScreenFurniture(self):
+        global starfields
         self.surface.fill((0, 0, 0))
+        for s in starfields:
+            s.update()
+            s.draw(self.surface)
         drawBase(self.surface, self.p1.damage)
 
     def checkCollisions(self):
@@ -96,6 +118,7 @@ class ZapGame(object):
             self.p1.damage.append((RND(70), RND(70), 4 + RND(8)))
             self.p1.shields -= 25
             self.flash = True
+            self.explosions.append([ship.body,50])
 
     def checkPlayerShots(self, ship):
         centre = ship.body.center
@@ -103,3 +126,6 @@ class ZapGame(object):
             dist = 5 + math.floor(abs(math.hypot(ship.body.center[0] - 300, ship.body.center[1] - 300)) / 10)
             ship.alive = False
             self.p1.score += dist
+            self.p1.hits += 1
+            self.explosions.append([ship.body, 50])
+            self.flash = True

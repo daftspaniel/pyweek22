@@ -12,6 +12,8 @@ class TFighter(GEvent):
         self.shootable = False
 
     def IsComplete(self):
+        if abs(self.body.left)+abs(self.body.top) >1200:
+            self.alive = False
         return False if self.alive else True
 
     def setOriginAndSpeed(self, pos, speed):
@@ -21,3 +23,4 @@ class TFighter(GEvent):
         self.vy = speed[1]
         if self.vx == 0: self.body.left += -40 + RND(90)
         if self.vy == 0: self.body.top += -40 + RND(90)
+

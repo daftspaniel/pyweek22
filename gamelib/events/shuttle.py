@@ -1,6 +1,7 @@
 from gamelib.events.gevent import GEvent
 import math
 from pygame.locals import *
+from gamelib.util.gfxutil import *
 
 
 class Shuttle(GEvent):
@@ -17,6 +18,12 @@ class Shuttle(GEvent):
         self.stepy = 2
         self.min = 0
         self.max = 560
+        self.invertX = RND(1)
+        self.invertY = RND(1)
+        if self.invertX == 1:
+            self.stepx = -2
+        if self.invertY == 1:
+            self.stepy = -2
 
     def IsComplete(self):
         return False if self.alive else True
@@ -41,6 +48,11 @@ class Shuttle(GEvent):
 
         if self.min > 200: self.min = 200
         if self.max < 300: self.max = 300
+
+        if self.invertX == 1:
+            self.x = 600 - self.x
+        if self.invertY == 1:
+            self.y = 600 - self.y
 
         self.body.left = self.x
         self.body.top = self.y

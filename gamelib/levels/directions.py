@@ -13,13 +13,13 @@ FAST = 5
 CRAZY = 8
 
 vs = {}
-vs['n'] = (0, SLOW* -1)
+vs['n'] = (0, SLOW * -1)
 vs['s'] = (0, SLOW)
 vs['e'] = (SLOW, 0)
 vs['w'] = (SLOW * - 1, 0)
 
 ms = {}
-ms['n'] = (0, MED* -1)
+ms['n'] = (0, MED * -1)
 ms['s'] = (0, MED)
 ms['e'] = (MED, 0)
 ms['w'] = (MED * - 1, 0)
@@ -27,12 +27,18 @@ ms['w'] = (MED * - 1, 0)
 Directions = (NORTH, SOUTH, EAST, WEST)
 Speeds = (vs['s'], vs['n'], vs['w'], vs['e'])
 
-def speedUp():
-   global vs
-   vs['n'] = (0, MED * -1)
-   vs['s'] = (0, MED)
-   vs['e'] = (MED, 0)
-   vs['w'] = (MED * - 1, 0)
+
+def speedUp(f):
+    global vs
+    global MED
+    global Speeds
+    print("Speed up" + str(f))
+    MED = MED + f
+    vs['n'] = (0, MED * -1)
+    vs['s'] = (0, MED)
+    vs['e'] = (MED, 0)
+    vs['w'] = (MED * - 1, 0)
+    Speeds = (vs['s'], vs['n'], vs['w'], vs['e'])
 
 
 def N(event):
