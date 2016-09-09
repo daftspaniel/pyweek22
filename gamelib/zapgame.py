@@ -12,14 +12,15 @@ FPS = 50
 pygame.time.set_timer(ANIMEVENT, int(1000 / FPS))
 
 starfields = [
-    Starfield( (0,0), (600,600), 20, 1 ),
-    Starfield( (0,0), (600,600), 30, 2 ),
-    Starfield( (0,0), (600,600), 40, 3 )
-    ]
+    Starfield((0, 0), (600, 600), 20, 1),
+    Starfield((0, 0), (600, 600), 30, 2),
+    Starfield((0, 0), (600, 600), 40, 3)
+]
 
-starfields[0].color = (255,0,0)
-starfields[1].color = (0,255,0)
-starfields[2].color = (0,0,255)
+starfields[0].color = (255, 0, 0)
+starfields[1].color = (0, 255, 0)
+starfields[2].color = (0, 0, 255)
+
 
 class ZapGame(object):
     def __init__(self, surface, screen):
@@ -37,7 +38,7 @@ class ZapGame(object):
         #
         self.UpdateScreen()
 
-        while True:
+        while self.p1.shields > 0:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     exit()
@@ -53,7 +54,7 @@ class ZapGame(object):
                     elif keystate[K_a] == 1:
                         self.p1.fire(4)
                     elif keystate[K_p] == 1:
-                        pygame.image.save(self.screen, "/home/daftspaniel/screenshot"+str(self.p1.shots)+".jpeg")
+                        pygame.image.save(self.screen, "/home/daftspaniel/screenshot" + str(self.p1.shots) + ".jpeg")
                 elif event.type == ANIMEVENT:
                     self.p1.update()
                     self.levels.update()
@@ -65,7 +66,13 @@ class ZapGame(object):
                     if self.flash:
                         self.sfx.boom2.play()
                         self.surface.fill((255, 0, 0))
+                        self.screen.blit(self.surface, (0, 0))
+                        pygame.display.flip()
+                        self.surface.fill((255, 128, 0))
+                        self.screen.blit(self.surface, (0, 0))
+                        pygame.display.flip()
                         self.flash = False
+                        self.UpdateScreen()
 
                     self.screen.blit(self.surface, (0, 0))
                     pygame.display.flip()
@@ -126,7 +133,7 @@ class ZapGame(object):
             self.p1.damage.append((RND(70), RND(70), 4 + RND(8)))
             self.p1.shields -= 25
             self.flash = True
-            self.explosions.append([ship.body,50])
+            self.explosions.append([ship.body, 50])
 
     def checkPlayerShots(self, ship):
         centre = ship.body.center

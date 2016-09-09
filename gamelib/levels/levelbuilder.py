@@ -17,6 +17,7 @@ def setNSEW(level, event, sole=True):
 
 def getLevel(index):
     level = []
+    resetSpeed()
     if index == 1:
         setNSEW(level, TFighter, False)
 
@@ -52,6 +53,7 @@ def getLevel(index):
 
         level.extend([Pause(4), Text("LEVEL UP", 12, True)])
 
+        # SPEED
         speedUp(0)
 
         setNSEW(level, Asteroid, False)
@@ -77,7 +79,9 @@ def getLevel(index):
         setNSEW(level, Shuttle, False)
         setNSEW(level, Ship, True)
 
-        level.extend([Pause(4), Text("LEVEL UP 2", 12, True)])
+        level.extend([Pause(4), Text("LEVEL UP ", 12, True)])
+
+        # SPEED
         speedUp(1)
 
         setNSEW(level, Asteroid, False)
@@ -90,16 +94,27 @@ def getLevel(index):
                   W(Ship(False)),
                   S(Ship()),
                   R(Ship()),
-                  R(Asteroid(False)),
+                  R(Shuttle()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  W(Asteroid()),
+                  N(Ship(False)),
+                  W(Ship()),
+                  E(Ship()),
+                  W(Ship(False)),
+                  S(Ship(False)),
+                  R(Orb()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
                   Pause(2),
-                  N(Shuttle()),
-                  R(Ship(False)),
-                  Pause(2)
                   ])
 
+        level.extend([Pause(4), Text("LEVEL UP ", 12, True)])
+        # SPEED
         speedUp(2)
 
-
         level.extend([E(Asteroid(False)),
                   W(Asteroid()),
                   R(Ship(False)),
@@ -113,8 +128,26 @@ def getLevel(index):
                   N(Shuttle()),
                   R(Orb()),
                   R(Ship(False)),
+                  Pause(2),
+                  R(Asteroid(False)),
+                  W(Ship()),
+                  E(Ship()),
+                  W(Ship(False)),
+                  S(Ship()),
+                  R(Ship()),
+                  R(Asteroid(False)),
+                  W(Ship()),
+                  E(Ship()),
+                  W(Ship(False)),
+                  S(Ship()),
+                  R(Ship()),
+                  R(Asteroid(False)),
+                  Pause(2),
+                  N(Shuttle()),
+                  R(Ship(False)),
                   Pause(2)
                   ])
+
         setNSEW(level, Asteroid, False)
 
         level.extend([E(Asteroid(False)),
@@ -131,12 +164,22 @@ def getLevel(index):
                   N(Shuttle()),
                   S(Orb()),
                   R(Ship(False)),
+                  R(Orb()),
+                  R(Orb()),
+                  R(Orb()),
+                  R(Ship(False)),
+                  R(Orb()),
+                  R(Orb()),
+                  R(Asteroid(False)),
+                  R(Orb()),
                   Pause(2)
                   ])
 
+        level.extend([Pause(4), Text("LEVEL UP ", 12, True)])
+        # SPEED
         speedUp(3)
 
-        setNSEW(level, Asteroid, False)
+        setNSEW(level, Asteroid)
 
         level.extend([E(Asteroid(False)),
                   W(Asteroid()),
@@ -152,7 +195,32 @@ def getLevel(index):
                   R(Ship(False)),
                   Pause(2)
                   ])
+        level.extend([E(Asteroid(False)),
+                  W(Asteroid()),
+                  N(Ship(False)),
+                  W(Ship()),
+                  E(Ship()),
+                  W(Ship(False)),
+                  S(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Ship()),
+                  R(Asteroid(False)),
+                  Pause(2),
+                  N(Shuttle()),
+                  R(Ship(False)),
+                  Pause(2)
+                  ])
 
+        level.extend([Pause(4), Text("LEVEL UP ", 12, True)])
+        # SPEED
         speedUp(4)
         setNSEW(level, Ship, False)
         setNSEW(level, Asteroid, True)
@@ -189,6 +257,8 @@ def getLevel(index):
                   R(Ship()),
                   ])
 
+        level.extend([Pause(4), Text("LEVEL UP ", 12, True)])
+        # SPEED
         speedUp(10)
         setNSEW(level, Asteroid, True)
 

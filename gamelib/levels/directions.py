@@ -27,6 +27,13 @@ ms['w'] = (MED * - 1, 0)
 Directions = (NORTH, SOUTH, EAST, WEST)
 Speeds = (vs['s'], vs['n'], vs['w'], vs['e'])
 
+def resetSpeed():
+    global vs,SLOW
+    vs['n'] = (0, SLOW * -1)
+    vs['s'] = (0, SLOW)
+    vs['e'] = (SLOW, 0)
+    vs['w'] = (SLOW * - 1, 0)
+
 
 def speedUp(f):
     global vs

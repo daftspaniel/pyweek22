@@ -13,6 +13,9 @@ orbColors = [(51, 196, 155), (51, 196, 255), (251, 196, 155)]
 TEXT_COLOR = (255, 255, 128)
 
 
+def drawBaseExp(sfc,i):
+    pygame.gfxdraw.filled_circle(sfc, midpoint[0], midpoint[1], i, (RND(255),0,0))
+
 def drawBase(sfc, damage):
     pygame.gfxdraw.filled_circle(sfc, midpoint[0], midpoint[1], 39, impColors[0])
     pygame.gfxdraw.aacircle(sfc, midpoint[0], midpoint[1], 39, impColors[2])

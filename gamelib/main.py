@@ -44,7 +44,7 @@ def main():
         if GameState == 1:
             sfx.inter.play()
             surface.fill(pygame.Color("black"))
-            drawText(surface, 10, 50, "Space Station",48)
+            drawText(surface, 10, 50, "Spacestation", 65)
 
             p1 = "Defend the Spacestation from the terrorist forces"
             p2 = "using WASD to fire lasers up, down, left and right."
@@ -57,7 +57,7 @@ def main():
             drawText(surface, 10, 220, p3)
             drawText(surface, 10, 350, p4)
             drawText(surface, 10, 370, p5)
-            drawText(surface, 10, 400, p6, 40, (255,0,0))
+            drawText(surface, 10, 400, p6, 40, (255, 0, 0))
 
             drawText(surface, 10, 580, "Press spacebar to begin!")
 
@@ -84,14 +84,36 @@ def main():
             drawText(surface, 10, 50, "Please Wait...")
             screen.blit(surface, (0, 0))
             pygame.display.flip()
+
             Game = ZapGame(surface, screen)
-            surface.fill(pygame.Color("black"))
+            # surface.fill(pygame.Color("black"))
+            Game.MainLoop()
             GameState = 3
 
         elif GameState == 3:
-            surface.fill(pygame.Color("blue"))
+            # surface.fill(pygame.Color("blue"))
+            # screen.blit(surface, (0, 0))
+            # pygame.display.flip()
+            # while GameState == 3:
+            # Game.MainLoop()
+            # GameState = 4
+            drawText(surface, 100, 285, "G A M E   O V E R", 64, (0, 255, 0))
             screen.blit(surface, (0, 0))
             pygame.display.flip()
-            while GameState == 3:
-                Game.MainLoop()
-                GameState = 4
+            gos = True
+            i = 0
+            while gos:
+                for event in pygame.event.get():
+                    if event.type == QUIT:
+                        exit()
+                    elif event.type == KEYDOWN:
+                        keystate = pygame.key.get_pressed()
+                    elif event.type == ANIMEVENT:
+                        i += 1
+                        drawBaseExp(surface, i)
+                        drawText(surface, 100, 285, "G A M E   O V E R", 64, (0, 255, 0))
+                        screen.blit(surface, (0, 0))
+                        pygame.display.flip()
+                    elif keystate[K_SPACE] == 1:
+                        gos = False
+            GameState = 1
