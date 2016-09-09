@@ -19,6 +19,7 @@ class Player(object):
     def fire(self, direction):
         if self.firing:
             return
+        self.sfx.zap.play()
         self.firing = True
         self.laserlife = self.maxlife
         self.fireDirection = direction

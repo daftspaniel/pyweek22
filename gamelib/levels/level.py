@@ -14,6 +14,7 @@ class LevelFactory(object):
         self.levels = levels
         self.events = []
         self.buildCurrentEvents()
+        self.txt  = True
 
     def buildCurrentEvents(self):
         if len(self.levels) == 0:
@@ -32,6 +33,7 @@ class LevelFactory(object):
         for event in self.events:
             if not event.IsComplete():
                 refreshedEvents.append(event)
+                if event.type==2: self.txt = True
         count = len(self.events)
         self.events = refreshedEvents
 

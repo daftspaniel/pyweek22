@@ -5,6 +5,7 @@ from gamelib.gfx.starfield import *
 from gamelib.levels.levelbuilder import *
 from gamelib.levels.level import *
 from gamelib.player import *
+from gamelib.util.snd import *
 
 ANIMEVENT = pygame.USEREVENT + 3
 FPS = 50
@@ -22,12 +23,15 @@ starfields[2].color = (0,0,255)
 
 class ZapGame(object):
     def __init__(self, surface, screen):
+        self.sfx = SFXStore()
         self.surface = surface
         self.screen = screen
         self.p1 = Player()
+        self.p1.sfx = self.sfx
         self.levels = LevelFactory(getLevel(1))
         self.flash = False
         self.explosions = []
+        self.sfx.inter.play()
 
     def MainLoop(self):
         #
@@ -49,13 +53,17 @@ class ZapGame(object):
                     elif keystate[K_a] == 1:
                         self.p1.fire(4)
                     elif keystate[K_p] == 1:
-                        pygame.image.save(self.screen, "/home/daftspaniel/screenshot.jpeg")
+                        pygame.image.save(self.screen, "/home/daftspaniel/screenshot"+str(self.p1.shots)+".jpeg")
                 elif event.type == ANIMEVENT:
                     self.p1.update()
                     self.levels.update()
+                    if self.levels.txt:
+                        self.sfx.alert.play()
+                        self.levels.txt = False
                     self.checkCollisions()
                     self.UpdateScreen()
                     if self.flash:
+                        self.sfx.boom2.play()
                         self.surface.fill((255, 0, 0))
                         self.flash = False
 
@@ -129,3 +137,4 @@ class ZapGame(object):
             self.p1.hits += 1
             self.explosions.append([ship.body, 50])
             self.flash = True
+            self.sfx.boom.play()
